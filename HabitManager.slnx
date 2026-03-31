@@ -1,0 +1,5 @@
+<Solution>
+  <Folder Name="/HabitManager.App/">
+    <Project Path="HabitManager.App/HabitManager/HabitManager.csproj" />
+  </Folder>
+</Solution>
