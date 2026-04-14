@@ -5,9 +5,11 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Releasec
 WORKDIR /src
+COPY ["Directory.Packages.props", "/src"]
 COPY ["HabitManager.App/HabitManager/HabitManager.csproj", "HabitManager.App/HabitManager/"]
+COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "HabitManager.App/HabitManager/HabitManager.csproj"
 COPY . .
 WORKDIR "/src/HabitManager.App/HabitManager"

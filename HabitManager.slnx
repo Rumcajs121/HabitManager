@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/BuildingBlocks/">
+    <Project Path="BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj" />
+  </Folder>
   <Folder Name="/CentralPackageManagement/">
     <File Path="Directory.Packages.props" />
   </Folder>
@@ -7,6 +10,9 @@
   </Folder>
   <Folder Name="/HabitManager.App/">
     <Project Path="HabitManager.App/HabitManager/HabitManager.csproj" />
+  </Folder>
+  <Folder Name="/ReverseProxy/">
+    <Project Path="ReverseProxy.Yarp/ReverseProxy.Yarp.csproj" />
   </Folder>
   <Folder Name="/Tests/">
     <Project Path="HabitManager.Tests/HabitManager.App.Tests/HabitManager.App.Tests.csproj" />
