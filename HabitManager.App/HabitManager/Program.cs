@@ -1,6 +1,9 @@
 using BuildingBlocks.Observability;
+using HabitManager.Database;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.AddObservability();
+builder.Services.AddHabitManagerDbContext(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

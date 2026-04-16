@@ -15,4 +15,16 @@ services:
     image: mcr.microsoft.com/dotnet/aspire-dashboard:13.0
     ports:
       - 18888:18888
-  
+  mongo-db:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: 1qazXSW@
+volumes:
+  mongo_data:
