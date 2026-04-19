@@ -1,4 +1,5 @@
 using HabitManager.Entities;
+using HabitManager.Entities.Habit;
 using MongoDB.Driver;
 
 namespace HabitManager.Database;
