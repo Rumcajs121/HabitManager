@@ -1,4 +1,5 @@
 using BuildingBlocks.AbstractionDDD;
+using BuildingBlocks.Exceptions;
 
 namespace HabitManager.Entities.Habit;
 
@@ -18,7 +19,28 @@ public class Habit : AggregateRoot<HabitId>
     public static Habit Create(string title, string? description, string userId, string purpose,
         List<DayStatus>? dayStatuses = null)
     {
-        //TODO: Create new DomainExceptions and sercure all property when we to apss on a method
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            throw new DomainException("Title cannot be empty.");
+        }
+        if (string.IsNullOrWhiteSpace(description))
+        {
+            throw new DomainException("Description cannot be empty.");
+        }
+        if (string.IsNullOrWhiteSpace(purpose))
+        {
+            throw new DomainException("Purposecannot be empty.");
+        }
+        if (!Guid.TryParse(userId, out var guid))
+        {
+            throw new DomainException("UserId is not a valid GUID.");
+        }
+
+        if (dayStatuses is null || !dayStatuses.Any())
+        {
+            throw new DomainException("DayStatuses cannot be empty.");
+        }
+        
         var habit = new Habit
         {
             Id = HabitId.Of(Guid.NewGuid()),
@@ -42,6 +64,8 @@ public class Habit : AggregateRoot<HabitId>
 
     public void ChangePurpose(string purpose)
     {
+        if (string.IsNullOrWhiteSpace(purpose))
+            throw new DomainException("Purpose cannot be empty.");
         Purpose = purpose;
         Touch();
     }
@@ -58,8 +82,20 @@ public class Habit : AggregateRoot<HabitId>
         Touch();
     }
 
+    public void MarkAsCompleted(DateOnly date)
+    {
+        var status = _dayStatuses.FirstOrDefault(ds => ds.Date == date);
+        if (status is null)
+        {
+            status = DayStatus.Create(date);
+            _dayStatuses.Add(status);
+        }
+        status.Complete();
+        Touch();
+    }
     public void AddDayStatus(DayStatus dayStatus)
     {
+        
         _dayStatuses.Add(dayStatus);
         Touch();
     }
